@@ -19,4 +19,17 @@ export async function saveImage(file) {
 	return `/uploads/${name}`;
 }
 
-export const MIME = Object.fromEntries(Object.entries(TYPES).map(([m, e]) => [e, m]));
+/**
+ * Portada de un juego a partir del formulario de administración:
+ * archivo subido > dirección https > quitar. Regresa undefined si no hay cambio.
+ */
+export async function coverFromForm(fd) {
+	const uploaded = await saveImage(fd.get('cover_file'));
+	if (uploaded) return uploaded;
+	const url = String(fd.get('cover_url') ?? '').trim();
+	if (url) return url;
+	if (fd.get('remove_cover')) return '';
+	return undefined;
+}
+
+export const MIME =Object.fromEntries(Object.entries(TYPES).map(([m, e]) => [e, m]));

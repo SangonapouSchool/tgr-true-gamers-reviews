@@ -201,7 +201,14 @@ function cleanGame(data) {
 	assert(platforms.length > 0, 'Indica al menos una consola o plataforma.');
 	const yErr = validateYear(data.year);
 	assert(!yErr, yErr);
+	// undefined = conservar la portada actual · '' = quitarla · texto = nueva portada
+	let cover_image;
+	if (data.cover_image !== undefined) {
+		cover_image = String(data.cover_image ?? '').trim() || null;
+		assert(!cover_image || /^\/uploads\/[\w.-]+$|^https:\/\/\S+$/.test(cover_image), 'La portada debe ser una imagen subida o una dirección https.');
+	}
 	return {
+		cover_image,
 		title,
 		genre,
 		platforms,
@@ -234,8 +241,8 @@ export function createGame(db, actor, data) {
 	const g = cleanGame(data);
 	return tx(db, () => {
 		const r = db
-			.prepare('INSERT INTO games (title, slug, genre, year, developer, synopsis, cover_hue) VALUES (?, ?, ?, ?, ?, ?, ?)')
-			.run(g.title, uniqueSlug(db, g.title), g.genre, g.year, g.developer, g.synopsis, g.cover_hue);
+			.prepare('INSERT INTO games (title, slug, genre, year, developer, synopsis, cover_hue, cover_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)')
+			.run(g.title, uniqueSlug(db, g.title), g.genre, g.year, g.developer, g.synopsis, g.cover_hue, g.cover_image ?? null);
 		const id = Number(r.lastInsertRowid);
 		const ins = db.prepare('INSERT INTO game_platforms (game_id, platform) VALUES (?, ?)');
 		for (const p of g.platforms) ins.run(id, p);
@@ -246,10 +253,11 @@ export function createGame(db, actor, data) {
 /** RF10 — edición de videojuego. */
 export function updateGame(db, actor, id, data) {
 	requirePerm(actor, 'manage_games');
-	assert(getGameById(db, id), 'Videojuego no encontrado.', 404);
+	const current = getGameById(db, id);
+	assert(current, 'Videojuego no encontrado.', 404);
 	const g = cleanGame(data);
 	return tx(db, () => {
-		db.prepare('UPDATE games SET title = ?, slug = ?, genre = ?, year = ?, developer = ?, synopsis = ?, cover_hue = ? WHERE id = ?').run(
+		db.prepare('UPDATE games SET title = ?, slug = ?, genre = ?, year = ?, developer = ?, synopsis = ?, cover_hue = ?, cover_image = ? WHERE id = ?').run(
 			g.title,
 			uniqueSlug(db, g.title, id),
 			g.genre,
@@ -257,6 +265,7 @@ export function updateGame(db, actor, id, data) {
 			g.developer,
 			g.synopsis,
 			g.cover_hue,
+			g.cover_image === undefined ? current.cover_image : g.cover_image,
 			id
 		);
 		db.prepare('DELETE FROM game_platforms WHERE game_id = ?').run(id);

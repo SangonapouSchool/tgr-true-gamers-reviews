@@ -67,7 +67,7 @@
 				<li>
 					<a href="/juegos/{g.slug}" class="flex items-center gap-3 rounded-lg p-1.5 text-fg no-underline hover:bg-surface-2">
 						<span class="w-5 text-center font-display text-lg font-bold text-muted">{i + 1}</span>
-						<GameCover title={g.title} hue={g.cover_hue} size="sm" class="w-10 shrink-0" />
+						<GameCover title={g.title} hue={g.cover_hue} image={g.cover_image} size="sm" class="w-10 shrink-0" />
 						<span class="min-w-0 flex-1">
 							<span class="line-clamp-1 text-sm font-semibold">{g.title}</span>
 							<span class="text-xs text-muted">{g.genre} · {g.year}</span>

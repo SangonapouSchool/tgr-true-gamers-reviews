@@ -11,9 +11,19 @@
 	let hue = $state(game.cover_hue ?? 260);
 	let selected = $state(new Set(game.platforms ?? []));
 	let extra = $state('');
+	// Portada: archivo nuevo (vista previa local), dirección pegada, o la actual
+	let filePreview = $state(null);
+	let coverUrl = $state('');
+	let removeCover = $state(false);
+	const previewImage = $derived(removeCover ? null : filePreview || coverUrl.trim() || game.cover_image || null);
+	function pickFile(e) {
+		const f = e.currentTarget.files?.[0];
+		if (filePreview) URL.revokeObjectURL(filePreview);
+		filePreview = f ? URL.createObjectURL(f) : null;
+	}
 </script>
 
-<form method="post" class="grid gap-6 md:grid-cols-[1fr_200px]">
+<form method="post" enctype="multipart/form-data" class="grid gap-6 md:grid-cols-[1fr_200px]">
 	<div class="space-y-4">
 		{#if error}<Alert>{error}</Alert>{/if}
 		<div>
@@ -59,8 +69,20 @@
 	</div>
 	<aside class="space-y-3">
 		<p class="label">Vista previa de portada</p>
-		<GameCover title={title || 'Título del juego'} {hue} />
-		<label for="cover_hue" class="label">Color de portada</label>
+		{#key previewImage}<GameCover title={title || 'Título del juego'} {hue} image={previewImage} />{/key}
+		<div>
+			<label for="cover_file" class="label">Imagen de portada (PNG, JPG o WEBP)</label>
+			<input id="cover_file" name="cover_file" type="file" accept="image/png,image/jpeg,image/webp" onchange={pickFile} class="w-full text-xs text-muted file:mr-2 file:rounded file:border-0 file:bg-surface-2 file:px-2 file:py-1 file:text-fg" />
+		</div>
+		<div>
+			<label for="cover_url" class="label">…o dirección de la imagen (https)</label>
+			<input id="cover_url" name="cover_url" type="url" bind:value={coverUrl} placeholder="https://…" class="input py-1 text-sm" />
+		</div>
+		{#if game.cover_image}
+			<label class="flex items-center gap-2 text-sm text-muted"><input type="checkbox" name="remove_cover" value="1" bind:checked={removeCover} /> Quitar la portada actual</label>
+		{/if}
+		<label for="cover_hue" class="label">Color de la portada generada</label>
 		<input id="cover_hue" name="cover_hue" type="range" min="0" max="359" bind:value={hue} class="w-full accent-[var(--color-primary)]" />
+		<p class="text-xs text-muted">Sin imagen, se muestra una portada generada con este color.</p>
 	</aside>
 </form>

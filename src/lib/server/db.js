@@ -34,7 +34,8 @@ CREATE TABLE IF NOT EXISTS games (
 	year        INTEGER NOT NULL,
 	developer   TEXT,
 	synopsis    TEXT,
-	cover_hue   INTEGER NOT NULL DEFAULT 260,  -- portada generada (sin arte con derechos)
+	cover_hue   INTEGER NOT NULL DEFAULT 260,  -- portada generada cuando no hay imagen
+	cover_image TEXT,                          -- portada subida por el administrador (opcional)
 	created_at  TEXT NOT NULL DEFAULT (datetime('now'))
 );
 
@@ -113,6 +114,9 @@ export function openDb(file) {
 	if (file !== ':memory:') fs.mkdirSync(path.dirname(file), { recursive: true });
 	const db = new DatabaseSync(file);
 	db.exec(SCHEMA);
+	// Migración: bases creadas antes de que existiera la portada con imagen
+	const cols = db.prepare('PRAGMA table_info(games)').all().map((c) => c.name);
+	if (!cols.includes('cover_image')) db.exec('ALTER TABLE games ADD COLUMN cover_image TEXT');
 	return db;
 }
 

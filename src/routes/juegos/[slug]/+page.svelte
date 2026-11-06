@@ -29,7 +29,7 @@
 <!-- Encabezado del juego -->
 <section class="game-hero card relative mb-8 overflow-hidden p-5 sm:p-6" style="--h:{g.cover_hue}">
 	<div class="relative grid gap-6 sm:grid-cols-[200px_1fr]">
-		<GameCover title={g.title} hue={g.cover_hue} size="lg" class="w-40 sm:w-full" />
+		<GameCover title={g.title} hue={g.cover_hue} image={g.cover_image} size="lg" class="w-40 sm:w-full" />
 		<div class="flex flex-col">
 			<div class="flex flex-wrap gap-2">
 				<span class="chip">{g.genre}</span>

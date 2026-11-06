@@ -154,7 +154,9 @@ Compila la app en `build/` y la sirve en **http://localhost:3000** (cámbialo co
 | ana@tgr.test | usuario12345 | Usuario registrado |
 | troll@tgr.test | usuario12345 | Usuario suspendido (sólo lectura) |
 
-Son datos ficticios de demostración: las revistas y los textos de las reseñas fueron escritos para este proyecto, y las portadas se generan con degradados (sin arte con derechos de autor).
+Son datos ficticios de demostración: las revistas y los textos de las reseñas fueron escritos para este proyecto.
+
+**Portadas.** Los datos de demostración enlazan la portada oficial de cada juego desde su artículo de Wikipedia (se necesita internet para verlas). Las imágenes no se copian al repositorio; pertenecen a sus editoras y se usan sólo con fines educativos. Si un juego no tiene portada o la imagen no carga, se muestra una portada generada con un degradado de color. El administrador puede subir o cambiar la portada de cualquier juego en *Administración › Videojuegos › Editar* (archivo PNG/JPG/WEBP o dirección https).
 
 ## Estructura
 

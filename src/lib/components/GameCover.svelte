@@ -3,7 +3,8 @@
 	 * Portada generada a partir del título y un tono de color.
 	 * Evita usar arte con derechos de autor y mantiene la identidad visual "gamer".
 	 */
-	let { title, hue = 260, size = 'md', class: klass = '' } = $props();
+	let { title, hue = 260, image = null, size = 'md', class: klass = '' } = $props();
+	let broken = $state(false);
 	const initials = $derived(
 		title
 			.replace(/[^\p{L}\p{N}\s]/gu, ' ')
@@ -15,6 +16,16 @@
 	);
 </script>
 
+{#if image && !broken}
+	<!-- Portada real subida por el administrador; si no carga, se usa la generada -->
+	<img
+		src={image}
+		alt="Portada de {title}"
+		loading="lazy"
+		onerror={() => (broken = true)}
+		class="aspect-[3/4] min-w-0 rounded-lg bg-surface-2 object-cover {klass || 'w-full'}"
+	/>
+{:else}
 <div
 	class="cover relative isolate flex aspect-[3/4] items-end overflow-hidden rounded-lg {klass}"
 	style="--h:{hue}"
@@ -37,6 +48,7 @@
 				: 'text-base'}">{title}</span
 	>
 </div>
+{/if}
 
 <style>
 	.cover {

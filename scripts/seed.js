@@ -7,7 +7,7 @@ import { openDb, DB_FILE, SCHEMA } from '../src/lib/server/db.js';
 import { hashPassword } from '../src/lib/server/auth.js';
 import { normalizeScore } from '../src/lib/scoring.js';
 import { slugify } from '../src/lib/validation.js';
-import { USERS, GAMES, OFFICIAL, OUTLET, RATERS, RATINGS, COMMENTS } from './seed-data.js';
+import { USERS, GAMES, COVERS, OFFICIAL, OUTLET, RATERS, RATINGS, COMMENTS } from './seed-data.js';
 
 export function seed(db) {
 	db.exec('BEGIN');
@@ -21,10 +21,10 @@ export function seed(db) {
 		const outletEditor = Object.fromEntries(USERS.filter((u) => u.outlet).map((u) => [u.outlet, userId[u.username]]));
 
 		const gameId = {};
-		const insGame = db.prepare('INSERT INTO games (title, slug, genre, year, developer, synopsis, cover_hue) VALUES (?, ?, ?, ?, ?, ?, ?)');
+		const insGame = db.prepare('INSERT INTO games (title, slug, genre, year, developer, synopsis, cover_hue, cover_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
 		const insPlat = db.prepare('INSERT INTO game_platforms (game_id, platform) VALUES (?, ?)');
 		for (const [title, genre, year, developer, platforms, hue, synopsis] of GAMES) {
-			const id = Number(insGame.run(title, slugify(title), genre, year, developer, synopsis, hue).lastInsertRowid);
+			const id = Number(insGame.run(title, slugify(title), genre, year, developer, synopsis, hue, COVERS[title] ?? null).lastInsertRowid);
 			gameId[title] = id;
 			for (const p of platforms) insPlat.run(id, p);
 		}

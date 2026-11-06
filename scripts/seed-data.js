@@ -29,6 +29,30 @@ export const USERS = [
 	{ username: 'troll99', email: 'troll@tgr.test', password: 'usuario12345', status: 'suspended' }
 ];
 
+/**
+ * Portadas: enlaces a la imagen del artículo de Wikipedia de cada juego (no se copian al repositorio).
+ * Las portadas pertenecen a sus editoras; se usan sólo con fines educativos en este proyecto escolar.
+ * Si un juego no tiene enlace, o la imagen no carga, se muestra la portada generada con su color.
+ */
+const W = 'https://upload.wikimedia.org/wikipedia/';
+export const COVERS = {
+	'Hollow Knight': W + 'en/d/de/Hollow_Knight_2026_cover_art.jpg',
+	'The Legend of Zelda: Tears of the Kingdom': W + 'en/f/fb/The_Legend_of_Zelda_Tears_of_the_Kingdom_cover.jpg',
+	'Elden Ring': W + 'en/b/b9/Elden_Ring_Box_art.jpg',
+	Celeste: W + 'commons/0/0f/Celeste_box_art_full.png',
+	Hades: W + 'en/c/cc/Hades_cover_art.jpg',
+	'Super Mario World': W + 'en/3/32/Super_Mario_World_Coverart.png',
+	'Chrono Trigger': W + 'en/a/a7/Chrono_Trigger.jpg',
+	"Baldur's Gate 3": W + 'en/1/12/Baldur%27s_Gate_3_cover_art.jpg',
+	'Metroid Prime Remastered': W + 'en/b/ba/MetroidPrimebox.jpg',
+	'Sonic the Hedgehog': W + 'en/b/ba/Sonic_the_Hedgehog_1_Genesis_box_art.jpg',
+	Balatro: W + 'en/8/89/Balatro_cover.jpg',
+	'Astro Bot': W + 'en/a/a9/Astro_Bot_cover_art.jpg',
+	'Street Fighter 6': W + 'en/9/94/Street_Fighter_6_box_art.jpg',
+	'Half-Life 2': W + 'en/2/25/Half-Life_2_cover.jpg',
+	Tetris: W + 'en/4/4a/Tetris_Boxshot.jpg'
+};
+
 /** [título, género, año, desarrollador, plataformas, tono de portada, sinopsis] */
 export const GAMES = [
 	['Hollow Knight', 'Metroidvania', 2017, 'Team Cherry', ['PC', 'Switch', 'PS4', 'Xbox One'], 215, 'Un caballero sin nombre desciende al reino en ruinas de Hallownest, un laberinto subterráneo lleno de insectos, secretos y jefes exigentes.'],

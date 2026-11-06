@@ -29,7 +29,7 @@
 				<tr>
 					<td>
 						<div class="flex items-center gap-3">
-							<GameCover title={g.title} hue={g.cover_hue} size="sm" class="w-9 shrink-0" />
+							<GameCover title={g.title} hue={g.cover_hue} image={g.cover_image} size="sm" class="w-9 shrink-0" />
 							<a href="/juegos/{g.slug}" class="font-semibold">{g.title}</a>
 						</div>
 					</td>

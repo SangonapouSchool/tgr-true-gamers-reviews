@@ -187,6 +187,17 @@ describe('Administración (RF10, RF11, RF12, RN8)', () => {
 		repo.deleteGame(db, admin, g.id);
 		expect(repo.getGameById(db, g.id)).toBeNull();
 	});
+	it('PI-28 el administrador asigna, conserva y quita la portada de un juego', () => {
+		const admin = userByName(db, 'admin');
+		const base = { title: 'Juego con portada', genre: 'Puzzle', year: 2025, platforms: 'PC' };
+		const g = repo.createGame(db, admin, { ...base, cover_image: '/uploads/abc123.png' });
+		expect(g.cover_image).toBe('/uploads/abc123.png');
+		expect(repo.updateGame(db, admin, g.id, base).cover_image).toBe('/uploads/abc123.png'); // sin campo: se conserva
+		expect(repo.updateGame(db, admin, g.id, { ...base, cover_image: 'https://example.com/c.jpg' }).cover_image).toBe('https://example.com/c.jpg');
+		expect(repo.updateGame(db, admin, g.id, { ...base, cover_image: '' }).cover_image).toBeNull(); // quitar
+		expect(() => repo.updateGame(db, admin, g.id, { ...base, cover_image: 'javascript:alert(1)' })).toThrow(/portada/);
+		expect(repo.getGameBySlug(db, 'hades').cover_image).toMatch(/^https:\/\/upload\.wikimedia\.org\//); // datos demo
+	});
 	it('PI-23 valida los campos obligatorios del videojuego y bloquea a no administradores', () => {
 		const admin = userByName(db, 'admin');
 		expect(() => repo.createGame(db, admin, { title: '', genre: 'x', year: 2020, platforms: 'PC' })).toThrow(/título/);

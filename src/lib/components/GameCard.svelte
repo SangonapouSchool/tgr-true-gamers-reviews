@@ -8,7 +8,7 @@
 	href="/juegos/{game.slug}"
 	class="card group flex flex-col overflow-hidden p-2 text-fg no-underline transition hover:-translate-y-0.5 hover:border-primary-soft hover:shadow-[0_10px_30px_-12px_rgba(108,71,255,.6)]"
 >
-	<GameCover title={game.title} hue={game.cover_hue} />
+	<GameCover title={game.title} hue={game.cover_hue} image={game.cover_image} />
 	<div class="flex flex-1 flex-col gap-2 px-1 pt-3 pb-1">
 		<div>
 			<h3 class="line-clamp-1 text-base font-semibold group-hover:text-primary-soft">{game.title}</h3>
