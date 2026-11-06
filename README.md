@@ -84,7 +84,7 @@ Abre **http://localhost:5173** en el navegador. Deja esa terminal abierta mientr
 npm test
 ```
 
-Deben aparecer **42 pruebas aprobadas**. Usan una base de datos en memoria, así que no modifican `data/tgr.db`.
+Deben aparecer **43 pruebas aprobadas**. Usan una base de datos en memoria, así que no modifican `data/tgr.db`.
 
 **Pruebas funcionales de extremo a extremo (E2E)**: abren un navegador real, recorren la app y toman capturas.
 
