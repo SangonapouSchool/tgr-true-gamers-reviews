@@ -1,0 +1,33 @@
+{
+  "name": "tgr-true-gamers-reviews",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TGR (True Gamers Reviews) - plataforma web de reseñas de videojuegos. Proyecto final de Diseño de Interfaces.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node build",
+    "seed": "node scripts/seed.js",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "engines": {
+    "node": ">=22.17"
+  },
+  "devDependencies": {
+    "@sveltejs/adapter-node": "^6.0.1",
+    "@sveltejs/kit": "^3.1.1",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "@tailwindcss/vite": "^4.3.4",
+    "playwright-core": "^1.65.0",
+    "svelte": "^5.57.3",
+    "tailwindcss": "^4.3.4",
+    "vite": "^8.3.6",
+    "vitest": "^5.1.0"
+  },
+  "imports": {
+    "#lib/*": "./src/lib/*"
+  }
+}

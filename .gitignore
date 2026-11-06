@@ -1,0 +1,9 @@
+node_modules
+/build
+/.svelte-kit
+/data/*.db
+/data/*.db-*
+/data/uploads/*
+!/data/uploads/.gitkeep
+.env
+.DS_Store
