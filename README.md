@@ -38,7 +38,7 @@ git clone https://github.com/SangonapouSchool/tgr-true-gamers-reviews.git
 cd tgr-true-gamers-reviews
 ```
 
-Si lo recibiste en el zip `ProyectoFinal_EquipoX.zip`, descomprímelo y abre una terminal dentro de la carpeta `codigo/`.
+Si lo recibiste en el zip `ProyectoFinal_Equipo2.zip`, descomprímelo y abre una terminal dentro de la carpeta `codigo/`.
 
 ### 3. Instalar dependencias
 
