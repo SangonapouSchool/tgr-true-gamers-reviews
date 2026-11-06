@@ -8,6 +8,7 @@ Proyecto final de **Diseño de Interfaces** · Universidad Marista de Mérida.
 - Diseño (arquitectura, flujos, wireframes, sistema de diseño): `proyecto_diseño.pdf`
 - Prototipo en Figma: https://www.figma.com/design/mObYzvsQU5N0H4yPkS4IAR
 - Pruebas: `proyecto_plan_ejecución_pruebas.pdf`
+- Repositorio: https://github.com/SangonapouSchool/tgr-true-gamers-reviews
 
 ## Stack
 
@@ -33,7 +34,7 @@ Proyecto final de **Diseño de Interfaces** · Universidad Marista de Mérida.
 ### 2. Descargar el proyecto
 
 ```bash
-git clone https://github.com/TU_USUARIO/tgr-true-gamers-reviews.git
+git clone https://github.com/SangonapouSchool/tgr-true-gamers-reviews.git
 cd tgr-true-gamers-reviews
 ```
 
