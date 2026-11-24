@@ -3,7 +3,7 @@
 	 * Portada generada a partir del título y un tono de color.
 	 * Evita usar arte con derechos de autor y mantiene la identidad visual "gamer".
 	 */
-	let { title, hue = 260, image = null, size = 'md', class: klass = '' } = $props();
+	let { title, hue = 260, image = null, size = 'md', eager = false, class: klass = '' } = $props();
 	let broken = $state(false);
 	const initials = $derived(
 		title
@@ -21,7 +21,13 @@
 	<img
 		src={image}
 		alt="Portada de {title}"
-		loading="lazy"
+		width="330"
+		height="440"
+		loading={eager ? 'eager' : 'lazy'}
+		fetchpriority={eager ? 'high' : 'auto'}
+		decoding="async"
+		crossorigin="anonymous"
+		referrerpolicy="no-referrer"
 		onerror={() => (broken = true)}
 		class="aspect-[3/4] min-w-0 rounded-lg bg-surface-2 object-cover {klass || 'w-full'}"
 	/>

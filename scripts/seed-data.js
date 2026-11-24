@@ -35,22 +35,24 @@ export const USERS = [
  * Si un juego no tiene enlace, o la imagen no carga, se muestra la portada generada con su color.
  */
 const W = 'https://upload.wikimedia.org/wikipedia/';
+/** Miniatura de 330 px de Wikimedia (más ligera que el original). */
+const thumb = (path) => `${W}${path.split('/')[0]}/thumb/${path.split('/').slice(1).join('/')}/330px-${path.split('/').pop()}`;
 export const COVERS = {
-	'Hollow Knight': W + 'en/d/de/Hollow_Knight_2026_cover_art.jpg',
-	'The Legend of Zelda: Tears of the Kingdom': W + 'en/f/fb/The_Legend_of_Zelda_Tears_of_the_Kingdom_cover.jpg',
-	'Elden Ring': W + 'en/b/b9/Elden_Ring_Box_art.jpg',
-	Celeste: W + 'commons/0/0f/Celeste_box_art_full.png',
-	Hades: W + 'en/c/cc/Hades_cover_art.jpg',
-	'Super Mario World': W + 'en/3/32/Super_Mario_World_Coverart.png',
-	'Chrono Trigger': W + 'en/a/a7/Chrono_Trigger.jpg',
-	"Baldur's Gate 3": W + 'en/1/12/Baldur%27s_Gate_3_cover_art.jpg',
-	'Metroid Prime Remastered': W + 'en/b/ba/MetroidPrimebox.jpg',
-	'Sonic the Hedgehog': W + 'en/b/ba/Sonic_the_Hedgehog_1_Genesis_box_art.jpg',
-	Balatro: W + 'en/8/89/Balatro_cover.jpg',
-	'Astro Bot': W + 'en/a/a9/Astro_Bot_cover_art.jpg',
-	'Street Fighter 6': W + 'en/9/94/Street_Fighter_6_box_art.jpg',
-	'Half-Life 2': W + 'en/2/25/Half-Life_2_cover.jpg',
-	Tetris: W + 'en/4/4a/Tetris_Boxshot.jpg'
+	'Hollow Knight': thumb('en/d/de/Hollow_Knight_2026_cover_art.jpg'),
+	'The Legend of Zelda: Tears of the Kingdom': thumb('en/f/fb/The_Legend_of_Zelda_Tears_of_the_Kingdom_cover.jpg'),
+	'Elden Ring': thumb('en/b/b9/Elden_Ring_Box_art.jpg'),
+	Celeste: thumb('commons/0/0f/Celeste_box_art_full.png'),
+	Hades: thumb('en/c/cc/Hades_cover_art.jpg'),
+	'Super Mario World': thumb('en/3/32/Super_Mario_World_Coverart.png'),
+	'Chrono Trigger': thumb('en/a/a7/Chrono_Trigger.jpg'),
+	"Baldur's Gate 3": thumb('en/1/12/Baldur%27s_Gate_3_cover_art.jpg'),
+	'Metroid Prime Remastered': thumb('en/b/ba/MetroidPrimebox.jpg'),
+	'Sonic the Hedgehog': thumb('en/b/ba/Sonic_the_Hedgehog_1_Genesis_box_art.jpg'),
+	Balatro: thumb('en/8/89/Balatro_cover.jpg'),
+	'Astro Bot': thumb('en/a/a9/Astro_Bot_cover_art.jpg'),
+	'Street Fighter 6': thumb('en/9/94/Street_Fighter_6_box_art.jpg'),
+	'Half-Life 2': thumb('en/2/25/Half-Life_2_cover.jpg'),
+	Tetris: thumb('en/4/4a/Tetris_Boxshot.jpg')
 };
 
 /** [título, género, año, desarrollador, plataformas, tono de portada, sinopsis] */

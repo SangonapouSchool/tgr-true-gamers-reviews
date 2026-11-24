@@ -5,7 +5,10 @@
 	const hasFilters = $derived(!!(f.q || f.platform || f.genre || f.year));
 </script>
 
-<svelte:head><title>Catálogo de videojuegos · TGR</title></svelte:head>
+<svelte:head>
+	<title>Catálogo de videojuegos · TGR</title>
+	<meta name="description" content="Catálogo de videojuegos de TGR: busca por título y filtra por consola, género y año para comparar las tres calificaciones." />
+</svelte:head>
 
 <div class="mb-6 flex flex-wrap items-end justify-between gap-3">
 	<div>
@@ -60,7 +63,8 @@
 		</div>
 	</form>
 
-	<section aria-label="Resultados">
+	<section aria-labelledby="resultados">
+		<h2 id="resultados" class="sr-only">Resultados</h2>
 		{#if data.games.length}
 			<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
 				{#each data.games as game (game.id)}

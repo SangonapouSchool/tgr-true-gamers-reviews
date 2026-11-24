@@ -22,7 +22,7 @@
 
 <header class="sticky top-0 z-40 border-b border-line bg-bg/85 backdrop-blur">
 	<div class="mx-auto flex h-16 max-w-7xl items-center gap-4 px-4">
-		<a href="/" class="no-underline" aria-label="TGR, ir al inicio"><Logo /></a>
+		<a href="/" class="no-underline"><Logo /><span class="sr-only"> (ir al inicio)</span></a>
 
 		<nav class="ml-6 hidden items-center gap-1 md:flex" aria-label="Principal">
 			{#each links as l (l.href)}
