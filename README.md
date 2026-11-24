@@ -38,7 +38,7 @@ git clone https://github.com/SangonapouSchool/tgr-true-gamers-reviews.git
 cd tgr-true-gamers-reviews
 ```
 
-Si lo recibiste en el zip `ProyectoFinal_Equipo2.zip`, descomprímelo y abre una terminal dentro de la carpeta `codigo/`.
+El zip de entrega (`ProyectoFinal_Equipo2.zip`) sólo contiene los 4 documentos PDF; el código se descarga de este repositorio.
 
 ### 3. Instalar dependencias
 
@@ -118,6 +118,8 @@ npm start
 ```
 
 Compila la app en `build/` y la sirve en **http://localhost:3000** (cámbialo con la variable `PORT`). La base de datos sigue siendo `data/tgr.db` (o la ruta en la variable `TGR_DB`).
+
+`npm start` ejecuta `server.js`, que sirve la carpeta `build/` y agrega las cabeceras de seguridad (CSP, anti-clickjacking, `nosniff`) revisadas con OWASP ZAP. Si la publicas detrás de un proxy con https, define `PROTOCOL=https`.
 
 ### 9. Problemas comunes
 

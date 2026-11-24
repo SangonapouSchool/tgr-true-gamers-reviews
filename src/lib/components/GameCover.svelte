@@ -5,6 +5,16 @@
 	 */
 	let { title, hue = 260, image = null, size = 'md', eager = false, class: klass = '' } = $props();
 	let broken = $state(false);
+	// Detecta portadas que no cargan sin el atributo onerror en línea
+	// (así la política CSP no necesita 'unsafe-hashes').
+	let img = $state();
+	$effect(() => {
+		if (!img) return;
+		const fail = () => (broken = true);
+		if (img.complete && img.naturalWidth === 0) fail();
+		img.addEventListener('error', fail);
+		return () => img.removeEventListener('error', fail);
+	});
 	const initials = $derived(
 		title
 			.replace(/[^\p{L}\p{N}\s]/gu, ' ')
@@ -28,7 +38,7 @@
 		decoding="async"
 		crossorigin="anonymous"
 		referrerpolicy="no-referrer"
-		onerror={() => (broken = true)}
+		bind:this={img}
 		class="aspect-[3/4] min-w-0 rounded-lg bg-surface-2 object-cover {klass || 'w-full'}"
 	/>
 {:else}
