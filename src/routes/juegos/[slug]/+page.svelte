@@ -10,6 +10,13 @@
 	const g = $derived(data.game);
 	let showOutlets = $state(false);
 	let hover = $state(0);
+	// Estrellas elegidas antes de enviar (hallazgo de la prueba de usabilidad):
+	// se quedan iluminadas al hacer clic, no sólo al pasar el cursor.
+	let selected = $state(0);
+	$effect(() => {
+		g.id;
+		selected = 0;
+	});
 
 	const fmtDate = (s) => new Date(s.replace(' ', 'T') + 'Z').toLocaleDateString('es-MX', { day: 'numeric', month: 'long', year: 'numeric' });
 	const scaleLabel = (r) => `${Number(r.score_raw)}/${Number(r.score_max)}`;
@@ -188,9 +195,9 @@
 						<div class="flex gap-1" role="radiogroup" onmouseleave={() => (hover = 0)}>
 							{#each [1, 2, 3, 4, 5] as n (n)}
 								<label class="cursor-pointer" onmouseenter={() => (hover = n)}>
-									<input type="radio" name="stars" value={n} class="peer sr-only" defaultChecked={data.myRating === n} required />
+									<input type="radio" name="stars" value={n} class="peer sr-only" defaultChecked={data.myRating === n} onchange={() => (selected = n)} required />
 									<span class="sr-only">{n} {n === 1 ? 'estrella' : 'estrellas'}</span>
-									<svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true" class="rounded transition peer-focus-visible:outline-2 peer-focus-visible:outline-accent {n <= (hover || data.myRating || 0) ? 'text-score-community' : 'text-line'}" fill="currentColor"><path d="M12 2.5l2.9 6.2 6.8.8-5 4.6 1.3 6.7L12 17.5l-6 3.3 1.3-6.7-5-4.6 6.8-.8z" /></svg>
+									<svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true" class="rounded transition peer-focus-visible:outline-2 peer-focus-visible:outline-accent {n <= (hover || selected || data.myRating || 0) ? 'text-score-community' : 'text-line'}" fill="currentColor"><path d="M12 2.5l2.9 6.2 6.8.8-5 4.6 1.3 6.7L12 17.5l-6 3.3 1.3-6.7-5-4.6 6.8-.8z" /></svg>
 								</label>
 							{/each}
 						</div>

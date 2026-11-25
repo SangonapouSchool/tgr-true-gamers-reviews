@@ -6,6 +6,12 @@
 
 	let { data, children } = $props();
 	let menuOpen = $state(false);
+	let notifOpen = $state(false);
+	// Cierra el menú de notificaciones al cambiar de página
+	$effect(() => {
+		page.url.pathname;
+		notifOpen = false;
+	});
 
 	const links = $derived(
 		[
@@ -46,10 +52,37 @@
 				<a href="/perfil" class="flex items-center gap-2 rounded-lg border border-line bg-surface px-2 py-1.5 text-sm text-fg no-underline hover:border-primary-soft">
 					<span class="grid size-7 place-items-center rounded-md bg-primary font-display font-bold text-white" aria-hidden="true">{data.user.username[0].toUpperCase()}</span>
 					<span class="hidden sm:inline">{data.user.username}</span>
-					{#if data.unread}
-						<span class="rounded-full bg-danger px-1.5 text-xs font-bold text-white">{data.unread}<span class="sr-only"> notificaciones sin leer</span></span>
-					{/if}
 				</a>
+				<!-- Campana con menú de notificaciones (hallazgos de la prueba de usabilidad) -->
+				<div class="relative">
+					<button
+						class="btn-ghost relative px-2.5 {data.unread ? 'text-fg' : 'text-muted'}"
+						aria-expanded={notifOpen}
+						aria-controls="menu-notificaciones"
+						onclick={() => (notifOpen = !notifOpen)}
+					>
+						<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" /><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" /></svg>
+						{#if data.unread}
+							<span class="absolute -top-1 -right-1 min-w-4 rounded-full bg-danger px-1 text-center text-[10px] leading-4 font-bold text-white" aria-hidden="true">{data.unread}</span>
+						{/if}
+						<span class="sr-only">Notificaciones{data.unread ? `: ${data.unread} sin leer` : ''}</span>
+					</button>
+					{#if notifOpen}
+						<div id="menu-notificaciones" class="card absolute right-0 z-50 mt-2 w-80 max-w-[calc(100vw-2rem)] p-2 shadow-xl">
+							<p class="px-2 py-1 font-display text-sm font-bold">Notificaciones</p>
+							<ul class="max-h-80 space-y-1 overflow-y-auto">
+								{#each data.latestNotifications as n (n.id)}
+									<li class="rounded-md p-2 text-sm {n.read ? 'text-muted' : 'bg-primary/10 text-fg'}">
+										{#if !n.read}<span class="sr-only">Nueva: </span>{/if}{n.message}
+									</li>
+								{:else}
+									<li class="p-2 text-sm text-muted">No tienes notificaciones.</li>
+								{/each}
+							</ul>
+							<a href="/perfil#notifs" onclick={() => (notifOpen = false)} class="mt-1 block rounded-md px-2 py-2 text-center text-sm font-semibold text-primary-soft hover:bg-surface-2">Ver todas las notificaciones</a>
+						</div>
+					{/if}
+				</div>
 				<form method="post" action="/logout"><button class="btn-ghost px-3">Salir</button></form>
 			{:else}
 				<a href="/login" class="btn-ghost">Entrar</a>
